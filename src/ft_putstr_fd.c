@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/08 17:05:49 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/09 11:37:49 by mahadad          ###   ########.fr       */
+/*   Created: 2021/10/12 13:56:02 by mahadad           #+#    #+#             */
+/*   Updated: 2022/03/09 11:18:54 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <unistd.h>
 
 #include "pipex.h"
-#include "ppx_struct.h"
 
-int	main(int ac, char **av)
+/**
+ * @brief Outputs the string ’s’ to the given file descriptor.
+ * 
+ * @param s  The string to output.
+ * @param fd The file descriptor on which to write.
+ */
+void	ft_putstr_fd(char *s, int fd)
 {
-	if (ac < 5)
-		ppx_exit_prog(EXIT_FAILURE, NULL, "Bad arg\n");
-	(void)av;
-	return (0);
+	char	*ptr;
+
+	if (!s || fd < 0)
+		return ;
+	ptr = s;
+	while (*ptr)
+		ptr++;
+	write(fd, s, (size_t)(ptr - s));
 }

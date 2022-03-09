@@ -1,24 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ppx_exit_prog.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/08 17:05:49 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/09 11:37:49 by mahadad          ###   ########.fr       */
+/*   Created: 2022/03/09 11:12:07 by mahadad           #+#    #+#             */
+/*   Updated: 2022/03/09 11:38:50 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "pipex.h"
+#include "ppx_debug.h"
 #include "ppx_struct.h"
 
-int	main(int ac, char **av)
+/**
+ * @brief 
+ * 
+ */
+void	ppx_exit_prog(int ret, t_data *data, const char *debug)
 {
-	if (ac < 5)
-		ppx_exit_prog(EXIT_FAILURE, NULL, "Bad arg\n");
-	(void)av;
-	return (0);
+	// if (data)//TODO
+		// ps_prog_free(data);
+	(void)data;//TODO
+	if (ret == EXIT_FAILURE)
+		ft_putstr_fd("Error\n", STDERR_FILENO);
+	if (PPX_DEBUG)
+		ft_putstr_fd((char *)debug, STDOUT_FILENO);
+	else
+		(void)debug;
+	exit(ret);
 }

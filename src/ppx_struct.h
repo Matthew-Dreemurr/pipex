@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ppx_struct.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/08 17:05:49 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/09 11:37:49 by mahadad          ###   ########.fr       */
+/*   Created: 2022/03/09 11:22:26 by mahadad           #+#    #+#             */
+/*   Updated: 2022/03/09 11:23:27 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#ifndef PPX_STRUCT_H
+# define PPX_STRUCT_H
 
-#include "pipex.h"
-#include "ppx_struct.h"
-
-int	main(int ac, char **av)
+typedef struct s_data
 {
-	if (ac < 5)
-		ppx_exit_prog(EXIT_FAILURE, NULL, "Bad arg\n");
-	(void)av;
-	return (0);
-}
+}				t_data;
+
+
+#endif
