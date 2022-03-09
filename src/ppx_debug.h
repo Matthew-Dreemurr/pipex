@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:13:11 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/09 11:14:20 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/09 11:48:03 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PPX_DEBUG_H
 
 # ifndef PPX_DEBUG
-#  define PPX_DEBUG 0
+#  define PPX_DEBUG 1
 # endif
 
 #endif
