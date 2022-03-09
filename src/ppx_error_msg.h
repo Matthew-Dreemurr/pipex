@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ppx_debug.h                                        :+:      :+:    :+:   */
+/*   ppx_error_msg.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/09 11:13:11 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/09 15:26:52 by mahadad          ###   ########.fr       */
+/*   Created: 2022/03/09 15:17:46 by mahadad           #+#    #+#             */
+/*   Updated: 2022/03/09 15:19:51 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PPX_DEBUG_H
-# define PPX_DEBUG_H
+#ifndef PPX_ERROR_MSG_H
+# define PPX_ERROR_MSG_H
 
-# ifndef PPX_DEBUG
-#  define PPX_DEBUG 0
-# endif
+# define PPX_ERR_USAGE "Usage:\n./pipex <file1> <cmd1> <cmd2> ... <file2>\n"
 
 #endif

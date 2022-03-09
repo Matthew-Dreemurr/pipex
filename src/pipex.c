@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 17:05:49 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/09 15:14:01 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/09 15:30:30 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,21 @@
 #include "pipex.h"
 #include "ppx_struct.h"
 #include "ppx_debug.h"
+#include "ppx_error_msg.h"
 
 void	ppx_check_bin(int ac, char **arg)
 {
 	int	x;
 
 	x = 2;
-	
+	while (x < ac)
+	{
+		if (access(arg[x], X_OK) == -1)
+		{
+			ft_putstr_fd(arg[x], STDERR_FILENO);
+			ppx_exit_prog(EXIT_FAILURE, NULL, " : command not found\n");//Check how to check the bin with ENV
+		}
+	}
 }
 
 static void	ppx_check_file(int ac, char **arg)
@@ -46,7 +54,7 @@ static void	ppx_check_file(int ac, char **arg)
 		ppx_exit_prog(EXIT_FAILURE, NULL, "Fail write file2\n");
 	else if (PPX_DEBUG)
 		ft_putstr_fd("[OK] write file2\n", STDOUT_FILENO);
-	ppx_check_bin(ac, arg);//TODDO
+	ppx_check_bin(ac, arg);
 }
 
 /**
@@ -59,7 +67,7 @@ static void	ppx_check_file(int ac, char **arg)
 int	main(int ac, char **av)
 {
 	if (ac < 5)
-		ppx_exit_prog(EXIT_FAILURE, NULL, "Usage:\n./pipex <file1> <cmd1> <cmd2> ... <file2>\n");
+		ppx_exit_prog(EXIT_FAILURE, NULL, PPX_ERR_USAGE);
 	ppx_check_file(ac, av);
 	if (PPX_DEBUG)
 		ft_putstr_fd("Clean exit\n", STDOUT_FILENO);
