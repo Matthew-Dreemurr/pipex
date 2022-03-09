@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 17:05:49 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/09 11:54:35 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/09 15:14:01 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,31 @@
 
 #include "pipex.h"
 #include "ppx_struct.h"
+#include "ppx_debug.h"
+
+void	ppx_check_bin(int ac, char **arg)
+{
+	int	x;
+
+	x = 2;
+	
+}
 
 static void	ppx_check_file(int ac, char **arg)
 {
-	if (ac != 5)
-		ppx_exit_prog(EXIT_FAILURE, NULL, "Bad arg\n");
 	if (access(arg[1], R_OK) == -1)
-		ppx_exit_prog(EXIT_FAILURE, NULL, "Fail acces file arg[1]\n");
-	if (access(arg[4], R_OK) == -1)
-		ppx_exit_prog(EXIT_FAILURE, NULL, "Fail acces file arg[4]\n");
+		ppx_exit_prog(EXIT_FAILURE, NULL, "Fail read file1\n");
+	else if (PPX_DEBUG)
+		ft_putstr_fd("[OK] read file1\n", STDOUT_FILENO);
+	if (access(arg[ac - 1], R_OK) == -1)
+		ppx_exit_prog(EXIT_FAILURE, NULL, "Fail read file2\n");
+	else if (PPX_DEBUG)
+		ft_putstr_fd("[OK] read file2\n", STDOUT_FILENO);
+	if (access(arg[ac - 1], W_OK) == -1)
+		ppx_exit_prog(EXIT_FAILURE, NULL, "Fail write file2\n");
+	else if (PPX_DEBUG)
+		ft_putstr_fd("[OK] write file2\n", STDOUT_FILENO);
+	ppx_check_bin(ac, arg);//TODDO
 }
 
 /**
@@ -42,6 +58,10 @@ static void	ppx_check_file(int ac, char **arg)
  */
 int	main(int ac, char **av)
 {
+	if (ac < 5)
+		ppx_exit_prog(EXIT_FAILURE, NULL, "Usage:\n./pipex <file1> <cmd1> <cmd2> ... <file2>\n");
 	ppx_check_file(ac, av);
+	if (PPX_DEBUG)
+		ft_putstr_fd("Clean exit\n", STDOUT_FILENO);
 	return (0);
 }
