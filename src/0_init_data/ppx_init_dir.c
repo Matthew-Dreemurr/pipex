@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 16:37:59 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/10 17:22:55 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/10 17:32:28 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,21 @@
  *     arg = {$binaryPath, `flag`}
  *     env = env[]
  */
-// static void	ppx_init_bin(t_data *data)
-// {
-//TODO use vector to find `dir/bin`, to avoid usless malloc.
-	// while ()
-	// {
-		/* code */
-	// }
-// }
+static void	ppx_init_bin(t_data *data)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+// TODO use vector to find `dir/bin`, to avoid usless malloc.
+	while (x < (data->ac))
+	{
+		y = 0;
+		while (acc)
+		{
+			/* code */
+		}
+		
+		x++;
+	}
+}
