@@ -47,6 +47,7 @@ static void	ppx_populate_cmd(t_data *data, char **av)
 		index++;
 		//TODO MAKE PPX_POPULATE_FLAG
 		//  Put flag in data->bin.flag (need to andle multiple flag), NULL if no flag
+		//  Test execve(); to see if we need to séperate multi flag.
 	}
 
 }
