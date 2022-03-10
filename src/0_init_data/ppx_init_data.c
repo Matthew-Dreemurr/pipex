@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ppx_populate_cmd.c                                :+:      :+:    :+:   */
+/*   ppx_init_data.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:23:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/10 14:27:28 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/10 15:32:42 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,32 +23,7 @@
 #include "ppx_debug.h"
 
 /**
- * @brief 
- * 
- * @param path 
- * @param cmd 
-static void	ppx_check_bin(char *path, char *cmd)
-{
-	int	x;
-
-	x = 2;
-	while (x < ac)
-	{
-		if (access(arg[x], X_OK) == -1)
-		{
-			ft_putstr_fd(arg[x], STDERR_FILENO);
-			ppx_exit_prog(EXIT_FAILURE, NULL, " : command not found\n");
-		}
-	}
-}
- */
-
-/**
  * @brief Store all cmd form `av` to `data-cmd`.
- * 
- * @param data 
- * @param ac 
- * @param av 
  */
 static void	ppx_populate_cmd(t_data *data, int ac, char **av)
 {
