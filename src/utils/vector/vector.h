@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 23:52:54 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/10 16:31:40 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/10 17:22:23 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 # define VECTOR_H
 
 # include <stddef.h>
-# include "libft.h"
 # ifdef WRA
 #  include "wraloc.h"
 # endif
+
+#include "ppx_libft.h"
 
 # define VEC_EXIT_FAILURE ((void *)0)
 # define VEC_EXIT_SUCCESS ((int)1)
