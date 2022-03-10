@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:23:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/10 15:46:36 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/10 16:19:13 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,23 @@
 
 #include "ppx_debug.h"
 
+static void	ppx_find_cmd_dir(t_data *data)
+{
+	int	x;
+
+	x = 0;
+	while (x < (data->ac - 2))
+	{
+		while (/* condition */)
+		{
+			/* code */
+		}//TODO WIP
+		
+	}
+}
+
 /**
- * @brief Store all cmd form `av` to `data-cmd[x].cmd`.
+ * @brief Store all cmd form `av` to `data->bin[x].cmd`.
  */
 static void	ppx_populate_cmd(t_data *data, char **av)
 {
@@ -63,10 +78,11 @@ void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 	data->av = av;
 	ppx_populate_cmd(data, av);
 	ppx_init_bindir(data, env);
+	// ppx_find_cmd_dir(data);
 
 //TODO REMOVE DEBUG
 	for (int x = 0; x < (data->ac - 2); x++)
 		printf("cmd[%d]:%s\n",x,data->bin[x].cmd);
-	for (int x = 0; data->bin_dir[x]; x++)
-		printf("bin[%d]:%s\n",x,data->bin_dir[x]);
+	// for (int x = 0; data->bin_dir[x]; x++)
+		// printf("bin[%d]:%s\n",x,data->bin_dir[x]);
 }
