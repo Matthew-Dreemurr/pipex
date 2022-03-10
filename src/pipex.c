@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 17:05:49 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/10 14:08:36 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/10 14:44:37 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@
 #include <unistd.h>
 
 #include "pipex.h"
+
 #include "ppx_struct.h"
 #include "ppx_debug.h"
 #include "ppx_error_msg.h"
 #include "ppx_libft.h"
-
-
+#include "ppx_exit_prog.h"
+#include "ppx_debug.h"
 
 static void	ppx_check_file(int ac, char **arg)
 {
@@ -44,21 +45,7 @@ static void	ppx_check_file(int ac, char **arg)
 		ft_putstr_fd("[OK] write file2\n", STDOUT_FILENO);
 }
 
-static void	ppx_init_data(t_data *data, int ac, char **av, char **env)
-{
-	int	x;
 
-	x = 0;
-	data->ac = ac - 1;
-	data->av = av;
-	while (ft_strncmp("PATH=", env[x], 5))
-		x++;
-	if (PPX_DEBUG2)
-		ft_putstr_fd(env[x], STDOUT_FILENO);
-	data->bin_dir = ft_split(env[x], ':');
-	if (!data->bin_dir)
-		ppx_exit_prog(EXIT_FAILURE, NULL, "Fail ft_plit(); to `data->bin_dir`");
-}
 
 /**
  * @brief `./pipex file1 cmd1 cmd2 <...> file2`.
@@ -74,10 +61,10 @@ int	main(int ac, char **av, char **env)
 
 	if (ac < 5)
 		ppx_exit_prog(EXIT_FAILURE, NULL, PPX_ERR_USAGE);
-	ppx_init_data(&data, ac, av, env);
 	ppx_check_file(ac, av);
-	ppx_populate_data(&data, ac, av);
+	ppx_init_data(&data, ac, av, env);
 	if (PPX_DEBUG)
 		ft_putstr_fd("Clean exit\n", STDOUT_FILENO);
+	ppx_exit_prog(EXIT_SUCCESS, &data, NULL);
 	return (0);
 }

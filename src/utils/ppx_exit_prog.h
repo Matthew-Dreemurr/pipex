@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ppx_debug.h                                        :+:      :+:    :+:   */
+/*   ppx_exit_prog.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/09 11:13:11 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/10 14:46:37 by mahadad          ###   ########.fr       */
+/*   Created: 2022/03/10 14:37:20 by mahadad           #+#    #+#             */
+/*   Updated: 2022/03/10 14:38:27 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PPX_DEBUG_H
-# define PPX_DEBUG_H
+#ifndef PPX_EXIT_PROG_H
+# define PPX_EXIT_PROG_H
 
-# ifndef PPX_DEBUG
-#  define PPX_DEBUG 0
-# endif
-
-# ifndef PPX_DEBUG2
-#  define PPX_DEBUG2 0
-# endif
-
-# ifdef WRA
-#  include "wraloc.h"
-# endif
+void	ppx_exit_prog(int ret, t_data *data, const char *debug);
 
 #endif

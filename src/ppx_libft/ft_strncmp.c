@@ -6,11 +6,13 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 18:36:41 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/10 13:44:00 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/10 14:44:31 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ppx_libft.h"
+
+#include "ppx_debug.h"
 
 /*
 *  SYNOPSIS

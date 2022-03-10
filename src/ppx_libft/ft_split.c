@@ -6,12 +6,15 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 10:16:53 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/10 14:01:27 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/10 14:44:26 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ppx_libft.h"
 #include <stdlib.h>
+
+#include "ppx_libft.h"
+
+#include "ppx_debug.h"
 
 /**
  * @brief Count word in `str`.

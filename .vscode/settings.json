@@ -5,6 +5,8 @@
 		"ppx_struct.h": "c",
 		"stdlib.h": "c",
 		"d": "c",
-		"ppx_libft.h": "c"
+		"ppx_libft.h": "c",
+		"ppx_exit_prog.h": "c",
+		"unistd.h": "c"
 	}
 }
