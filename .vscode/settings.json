@@ -3,6 +3,8 @@
 		"pipex.h": "c",
 		"ppx_debug.h": "c",
 		"ppx_struct.h": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"d": "c",
+		"ppx_libft.h": "c"
 	}
 }

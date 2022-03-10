@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:22:26 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/10 13:38:58 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/10 13:58:19 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_data
 	char	*env;
 	int		ac;
 	char	**av;
-	char	*bin_dir;
+	char	**bin_dir;
 }				t_data;
 
 #endif

@@ -6,7 +6,7 @@
 #    By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 11:30:03 by mahadad           #+#    #+#              #
-#    Updated: 2022/03/09 11:37:12 by mahadad          ###   ########.fr        #
+#    Updated: 2022/03/10 14:00:30 by mahadad          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ endif
 
 ifeq ($(D), 1)
 CFLAGS += -g3
-CFLAGS += -D PS_DEBUG=1
+CFLAGS += -D PPX_DEBUG2=1
 endif
 
 # _.-=+=-._.-=+=-._[ Source & Bin ]_.-=+=-._.-=+=-._ #

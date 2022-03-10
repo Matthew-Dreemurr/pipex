@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 17:05:49 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/10 13:57:24 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/10 14:08:36 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ static void	ppx_check_file(int ac, char **arg)
 		ppx_exit_prog(EXIT_FAILURE, NULL, "Fail read file1\n");
 	else if (PPX_DEBUG)
 		ft_putstr_fd("[OK] read file1\n", STDOUT_FILENO);
-	if (access(arg[ac], R_OK) == -1)
+	if (access(arg[ac - 1], R_OK) == -1)
 		ppx_exit_prog(EXIT_FAILURE, NULL, "Fail read file2\n");
 	else if (PPX_DEBUG)
 		ft_putstr_fd("[OK] read file2\n", STDOUT_FILENO);
-	if (access(arg[ac], W_OK) == -1)
+	if (access(arg[ac - 1], W_OK) == -1)
 		ppx_exit_prog(EXIT_FAILURE, NULL, "Fail write file2\n");
 	else if (PPX_DEBUG)
 		ft_putstr_fd("[OK] write file2\n", STDOUT_FILENO);
@@ -53,7 +53,11 @@ static void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 	data->av = av;
 	while (ft_strncmp("PATH=", env[x], 5))
 		x++;
-	ft_putstr_fd(env[x], STDOUT_FILENO);
+	if (PPX_DEBUG2)
+		ft_putstr_fd(env[x], STDOUT_FILENO);
+	data->bin_dir = ft_split(env[x], ':');
+	if (!data->bin_dir)
+		ppx_exit_prog(EXIT_FAILURE, NULL, "Fail ft_plit(); to `data->bin_dir`");
 }
 
 /**
