@@ -6,13 +6,13 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:56:02 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/09 11:18:54 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/10 13:44:21 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-#include "pipex.h"
+#include "ppx_libft.h"
 
 /**
  * @brief Outputs the string ’s’ to the given file descriptor.

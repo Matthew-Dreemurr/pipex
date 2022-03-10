@@ -1,5 +1,8 @@
 {
 	"files.associations": {
-		"pipex.h": "c"
+		"pipex.h": "c",
+		"ppx_debug.h": "c",
+		"ppx_struct.h": "c",
+		"stdlib.h": "c"
 	}
 }

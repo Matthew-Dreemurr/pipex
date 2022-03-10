@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:12:07 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/09 15:26:05 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/10 13:50:18 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "pipex.h"
 #include "ppx_debug.h"
 #include "ppx_struct.h"
+#include "ppx_libft.h"
 
 /**
  * @brief 
