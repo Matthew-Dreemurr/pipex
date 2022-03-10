@@ -66,6 +66,9 @@ static void	ppx_populate_cmd(t_data *data, int ac, char **av)
 	x = 0;
 }
 
+/**
+ * @brief Split all `$PATH` in `data->bin_dir`.
+ */
 static void	ppx_init_bindir(t_data *data, char **env)
 {
 	int	x;
@@ -74,11 +77,6 @@ static void	ppx_init_bindir(t_data *data, char **env)
 	while (ft_strncmp("PATH=", env[x], 5))
 		x++;
 	data->bin_dir = ft_split(env[x] + 5, ':');
-	for (int i = 0; data->bin_dir[i]; i++)
-	{
-		ft_putstr_fd(data->bin_dir[i], 1);
-	}
-	
 	if (!data->bin_dir)
 		ppx_exit_prog(EXIT_FAILURE, NULL, "Fail ft_plit(); to `data->bin_dir`");
 }
