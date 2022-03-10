@@ -16,6 +16,7 @@
 typedef struct s_bin
 {
 	char	*cmd;
+	char	*flag;
 	char	*path;
 	char	**array;
 }				t_bin;

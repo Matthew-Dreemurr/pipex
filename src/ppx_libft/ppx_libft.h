@@ -20,5 +20,8 @@ void	ft_putstr_fd(char *s, int fd);
 char	**ft_split(char const *s, char c);
 size_t	strlen_protect(const char *s);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t	len_chrchr(char *str, char c);
+size_t	len_chrchr_strict(char *str, char c);
 
 #endif

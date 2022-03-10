@@ -27,18 +27,26 @@
  */
 static void	ppx_populate_cmd(t_data *data, char **av)
 {
-	int	x;
+	int		index;
+	int		x;
+	int		len;
+	int		end;
 
-	x = 0;
-	data->bin = (t_bin *)malloc(sizeof(t_bin) * (data->ac - 2));
-	if (!data->bin)
-		ppx_exit_prog(EXIT_FAILURE, data, "Fail malloc **data !\n");
-	while (x < (data->ac - 2))
+	index = 0;
+	x = 2;
+	while (index < (data->ac - 2))
 	{
-		data->bin[x].cmd = av[x + 2];
+		len = strlen_protect(av[x]);
+		end = len_chrchr_strict(av[x], ' ');
+		if (!end)
+			end = len;
+		if (!len)
+			ppx_exit_prog(EXIT_FAILURE, data, "Empty commad ?\n");
+		data->bin[index].cmd = ft_substr(av[x], 0, end);
 		x++;
+		index++;
 	}
-	x = 0;
+
 }
 
 /**
@@ -61,6 +69,9 @@ void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 {
 	data->ac = ac - 1;
 	data->av = av;
+		data->bin = (t_bin *)malloc(sizeof(t_bin) * (data->ac - 2));
+	if (!data->bin)
+		ppx_exit_prog(EXIT_FAILURE, data, "Fail malloc **data !\n");
 	ppx_populate_cmd(data, av);
 	ppx_init_bindir(data, env);
 	// ppx_find_cmd_dir(data);
