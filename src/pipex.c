@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 17:05:49 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/09 15:30:30 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/10 12:39:18 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	ppx_check_file(int ac, char **arg)
 }
 
 /**
- * @brief `./pipex file1 cmd1 cmd2 file2`
+ * @brief `./pipex file1 cmd1 cmd2 <...> file2`
  * 
  * @param ac 
  * @param av 
