@@ -7,6 +7,7 @@
 		"d": "c",
 		"ppx_libft.h": "c",
 		"ppx_exit_prog.h": "c",
-		"unistd.h": "c"
+		"unistd.h": "c",
+		"stdio.h": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:23:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/10 15:32:42 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/10 15:46:36 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@
 #include "ppx_debug.h"
 
 /**
- * @brief Store all cmd form `av` to `data-cmd`.
+ * @brief Store all cmd form `av` to `data-cmd[x].cmd`.
  */
-static void	ppx_populate_cmd(t_data *data, int ac, char **av)
+static void	ppx_populate_cmd(t_data *data, char **av)
 {
 	int	x;
 
 	x = 0;
-	data->cmd = (t_cmd *)malloc(sizeof(t_cmd) * (ac - 2));
-	if (!data->cmd)
+	data->bin = (t_bin *)malloc(sizeof(t_bin) * (data->ac - 2));
+	if (!data->bin)
 		ppx_exit_prog(EXIT_FAILURE, data, "Fail malloc **data !\n");
-	while (x < (ac - 2))
+	while (x < (data->ac - 2))
 	{
-		data->cmd[x].cmd = av[x + 2];
+		data->bin[x].cmd = av[x + 2];
 		x++;
 	}
 	x = 0;
@@ -56,10 +56,17 @@ static void	ppx_init_bindir(t_data *data, char **env)
 		ppx_exit_prog(EXIT_FAILURE, NULL, "Fail ft_plit(); to `data->bin_dir`");
 }
 
+#include <stdio.h>//TODO
 void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 {
 	data->ac = ac - 1;
 	data->av = av;
-	ppx_populate_cmd(data, ac, av);
+	ppx_populate_cmd(data, av);
 	ppx_init_bindir(data, env);
+
+//TODO REMOVE DEBUG
+	for (int x = 0; x < (data->ac - 2); x++)
+		printf("cmd[%d]:%s\n",x,data->bin[x].cmd);
+	for (int x = 0; data->bin_dir[x]; x++)
+		printf("bin[%d]:%s\n",x,data->bin_dir[x]);
 }
