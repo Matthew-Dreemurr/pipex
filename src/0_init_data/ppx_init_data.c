@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:23:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/10 16:19:13 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/10 16:37:34 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,6 @@
 #include "ppx_exit_prog.h"
 
 #include "ppx_debug.h"
-
-static void	ppx_find_cmd_dir(t_data *data)
-{
-	int	x;
-
-	x = 0;
-	while (x < (data->ac - 2))
-	{
-		while (/* condition */)
-		{
-			/* code */
-		}//TODO WIP
-		
-	}
-}
 
 /**
  * @brief Store all cmd form `av` to `data->bin[x].cmd`.
