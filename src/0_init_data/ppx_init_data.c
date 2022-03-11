@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:23:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/11 16:03:10 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/11 16:46:01 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static void	ppx_vect_dir_path(t_data *data, t_vector *vec, char *dir, char *cmd)
 		ppx_exit_prog(EXIT_FAILURE, data, "vect_cat fail !\n");
 }
 
-#include <stdio.h>//TODO REMOVE
 static void	ppx_find_cmd_dir(t_data *data)
 {
 	int			x;
@@ -87,7 +86,7 @@ static void	ppx_find_cmd_dir(t_data *data)
 			ppx_vect_dir_path(data, &data->vec, *tmp, data->cmd[x].cmd[0]);
 			if (access(data->vec.buff, R_OK) != -1)
 			{
-				printf("find %s\n", data->vec.buff);//TODO ERR MSG IF NOT FOUND
+				data->cmd[x].bin = ft_strdup(data->vec.buff);
 				break ;
 			}
 			tmp++;
@@ -116,8 +115,11 @@ void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 	ppx_find_cmd_dir(data);
 
 //TODO REMOVE DEBUG
+	for (int x = 0; data->bin_dir[x]; x++)
+	{
+
+		printf("bin[%d]:%s\n",x,data->bin_dir[x]);
+	}
 	for (int x = 0; x < (data->ac - 2); x++)
-		printf("cmd[%d]:%s\n",x,data->cmd[x].cmd[1]);
-	// for (int x = 0; data->bin_dir[x]; x++)
-		// printf("bin[%d]:%s\n",x,data->bin_dir[x]);
+		printf("flag[%d]:%s\n",x,data->cmd[x].cmd[1]);
 }

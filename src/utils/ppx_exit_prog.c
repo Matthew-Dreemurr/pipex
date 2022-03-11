@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:12:07 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/11 16:25:08 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/11 16:36:12 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	ppx_free_bindir(t_data *data)
 	x = 0;
 	while (data->bin_dir[x])
 	{
-		printf("DEBUG\n");
 		free(data->bin_dir[x]);
 		x++;
 	}
@@ -36,6 +35,21 @@ static void	ppx_free_bindir(t_data *data)
 
 static void	ppx_free_cmd_struct(t_data *data)
 {
+	int	x;
+	int	o;
+
+	x = 0;
+	while (x < (data->ac - 2))
+	{
+	o = 0;
+		while (data->cmd[x].cmd[o])
+		{
+			free (data->cmd[x].cmd[o]);
+			o++;
+		}
+		free (data->cmd[x].cmd);
+		x++;
+	}
 	free(data->cmd);
 }
 
