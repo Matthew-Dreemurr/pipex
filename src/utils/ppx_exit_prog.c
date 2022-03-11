@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:12:07 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/11 16:06:26 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/11 16:25:08 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include "ppx_struct.h"
 #include "ppx_libft.h"
 
+
+#include <stdio.h>//TODO REMOVE
 static void	ppx_free_bindir(t_data *data)
 {
 	int	x;
@@ -25,6 +27,7 @@ static void	ppx_free_bindir(t_data *data)
 	x = 0;
 	while (data->bin_dir[x])
 	{
+		printf("DEBUG\n");
 		free(data->bin_dir[x]);
 		x++;
 	}
