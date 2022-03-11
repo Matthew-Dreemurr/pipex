@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:23:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/11 16:46:01 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/11 17:31:08 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,7 @@ void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 //TODO REMOVE DEBUG
 	for (int x = 0; data->bin_dir[x]; x++)
 	{
-
-		printf("bin[%d]:%s\n",x,data->bin_dir[x]);
+		printf("bin[%d]:%s\n",x,data->cmd[x].bin);
 	}
 	for (int x = 0; x < (data->ac - 2); x++)
 		printf("flag[%d]:%s\n",x,data->cmd[x].cmd[1]);
