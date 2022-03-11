@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:12:07 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/11 16:36:12 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/12 00:32:56 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,15 @@
 #include "ppx_libft.h"
 
 
+static void	ppx_free_set_null(void *ptr)
+{
+	free(ptr);
+	ptr = NULL;
+}
+
 #include <stdio.h>//TODO REMOVE
+/**
+ */
 static void	ppx_free_bindir(t_data *data)
 {
 	int	x;
@@ -27,10 +35,10 @@ static void	ppx_free_bindir(t_data *data)
 	x = 0;
 	while (data->bin_dir[x])
 	{
-		free(data->bin_dir[x]);
+		ppx_free_set_null(data->bin_dir[x]);
 		x++;
 	}
-	free(data->bin_dir);
+	ppx_free_set_null(data->bin_dir);
 }
 
 static void	ppx_free_cmd_struct(t_data *data)
@@ -42,16 +50,16 @@ static void	ppx_free_cmd_struct(t_data *data)
 	while (x < (data->ac - 2))
 	{
 		o = 0;
-		free(data->cmd[x].bin);
-		while (data->cmd[x].cmd[o])
+		ppx_free_set_null(data->cmd[x].bin);
+		while (data->cmd[x].arg[o])
 		{
-			free (data->cmd[x].cmd[o]);
+			ppx_free_set_null (data->cmd[x].arg[o]);
 			o++;
 		}
-		free (data->cmd[x].cmd);
+		ppx_free_set_null (data->cmd[x].arg);
 		x++;
 	}
-	free(data->cmd);
+	ppx_free_set_null(data->cmd);
 }
 
 
@@ -74,7 +82,7 @@ void	ppx_exit_prog(int ret, t_data *data, const char *debug)
 	if (ret == EXIT_FAILURE)
 		ft_putstr_fd("Error\n", STDERR_FILENO);
 
-	free(data->vec.buff);
+	ppx_free_set_null(data->vec.buff);
 
 	
 	// system("leaks pipex");

@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:23:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/12 00:15:10 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/12 00:34:22 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 #include "ppx_debug.h"
 
 /**
- * @brief Store all cmd form `av` to `data->cmd[x].cmd`.
+ * @brief Store all cmd form `av` to `data->cmd[x].arg`.
  */
 static void	ppx_populate_cmd(t_data *data, char **av)
 {
@@ -39,7 +39,7 @@ static void	ppx_populate_cmd(t_data *data, char **av)
 		len = strlen_protect(av[x]);
 		if (!len)
 			ppx_exit_prog(EXIT_FAILURE, data, "Empty commad ?\n");
-		data->cmd[index].cmd = ft_split(av[x], ' ');
+		data->cmd[index].arg = ft_split(av[x], ' ');
 		x++;
 		index++;
 	}
@@ -87,7 +87,7 @@ static void	ppx_find_cmd_dir(t_data *data)
 		tmp = data->bin_dir;
 		while (*tmp)
 		{
-			ppx_vect_dir_path(data, &data->vec, *tmp, data->cmd[x].cmd[0]);
+			ppx_vect_dir_path(data, &data->vec, *tmp, data->cmd[x].arg[0]);
 			if (access(data->vec.buff, X_OK) != -1)
 			{
 				data->cmd[x].bin = ft_strdup(data->vec.buff);
@@ -96,7 +96,7 @@ static void	ppx_find_cmd_dir(t_data *data)
 			tmp++;
 			if (!(*tmp))
 			{
-				ft_putstr_fd(data->cmd[x].cmd[0], STDOUT_FILENO);
+				ft_putstr_fd(data->cmd[x].arg[0], STDOUT_FILENO);
 				ppx_exit_prog(EXIT_FAILURE, data, "\nCommand not found !\n");
 			}
 		}
@@ -107,7 +107,7 @@ static void	ppx_find_cmd_dir(t_data *data)
 #include <stdio.h>//TODO REMOVE
 #include <unistd.h>
 /**
- * @brief Will init all data, will free data->cmd[x].cmd[0]
+ * @brief Will init all data, will free data->cmd[x].arg[0]
  *                        and replace with data->cmd[x].bin.
  */
 void	ppx_init_data(t_data *data, int ac, char **av, char **env)
@@ -126,15 +126,19 @@ void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 	for (int x = 0; x < (data->ac - 2); x++)
 	{
 		printf("cmd[%d]: %-12s ",x,data->cmd[x].bin);
-		for (int y = 1; data->cmd[x].cmd[y]; y++)
-			printf("[%s] ",  data->cmd[x].cmd[y]);
+		for (int y = 1; data->cmd[x].arg[y]; y++)
+			printf("[%s] ",  data->cmd[x].arg[y]);
 		printf("\n");
 	}
 	for (int v = 0; v < (data->ac - 2); v++)
 	{
-		free(data->cmd[v].cmd[0]);
-		data->cmd[v].cmd[0] = data->cmd[v].bin;
-		execve(data->cmd[v].bin, data->cmd[v].cmd, env);
+		free(data->cmd[v].arg[0]);
+		data->cmd[v].arg[0] = data->cmd[v].bin;
+		printf("%s\n", data->cmd[v].arg[0]);
 	}
-	
+/** //TODO WIP
+ * Need to find a other logic to store data
+ * #1 /bin/cmd
+ * #2 /bin/cmd [f1] [..]
+ */
 }
