@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:23:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/11 12:07:02 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/11 15:50:02 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@
 #include "ppx_struct.h"
 #include "ppx_libft.h"
 #include "ppx_exit_prog.h"
+#include "vector.h"
 
 #include "ppx_debug.h"
 
 /**
- * @brief Store all cmd form `av` to `data->bin[x].cmd`.
+ * @brief Store all cmd form `av` to `data->cmd[x].cmd`.
  */
 static void	ppx_populate_cmd(t_data *data, char **av)
 {
@@ -38,7 +39,7 @@ static void	ppx_populate_cmd(t_data *data, char **av)
 		len = strlen_protect(av[x]);
 		if (!len)
 			ppx_exit_prog(EXIT_FAILURE, data, "Empty commad ?\n");
-		data->bin[index].cmd = ft_split(av[x], ' ');
+		data->cmd[index].cmd = ft_split(av[x], ' ');
 		x++;
 		index++;
 	}
@@ -59,16 +60,37 @@ static void	ppx_init_bindir(t_data *data, char **env)
 		ppx_exit_prog(EXIT_FAILURE, NULL, "Fail ft_plit(); to `data->bin_dir`");
 }
 
+
+static void	ppx_vect_dir_path(t_data *data, t_vector *vec, char *dir, char *cmd)
+{
+	if (!vect_write(vec, dir))
+		ppx_exit_prog(EXIT_FAILURE, data, "vect_write fail !\n");
+	if (!vect_push(vec, '/'))
+		ppx_exit_prog(EXIT_FAILURE, data, "vect_push fail !\n");
+	if (!vect_cat(vec, cmd))
+		ppx_exit_prog(EXIT_FAILURE, data, "vect_cat fail !\n");
+}
+
+#include <stdio.h>//TODO REMOVE
 static void	ppx_find_cmd_dir(t_data *data)
 {
-	int	x;
+	int			x;
+	char		**tmp;
+	t_vector	vec;
 
+	vect_init_strict(&vec, 32);
 	x = 0;
 	while (x < (data->ac - 2))
 	{
-		while//TODO
-			if (access(data->bin[x].cmd[0], X_OK))
-				printf("find %s%s\n", data->bin[x].cmd[0])//TODO WIP check to find the bin path
+		tmp = data->bin_dir;
+		while (*tmp)
+		{
+			ppx_vect_dir_path(data, &vec, *tmp, data->cmd[x].cmd[0]);
+			if (access(vec.buff, R_OK) != -1)
+				printf("find %s\n", vec.buff);
+			tmp++;
+		}
+		x++;
 	}
 }
 
@@ -78,8 +100,8 @@ void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 {
 	data->ac = ac - 1;
 	data->av = av;
-		data->bin = (t_bin *)malloc(sizeof(t_bin) * (data->ac - 2));
-	if (!data->bin)
+		data->cmd = (t_cmd *)malloc(sizeof(t_cmd) * (data->ac - 2));
+	if (!data->cmd)
 		ppx_exit_prog(EXIT_FAILURE, data, "Fail malloc **data !\n");
 	ppx_populate_cmd(data, av);
 	ppx_init_bindir(data, env);
@@ -87,7 +109,7 @@ void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 
 //TODO REMOVE DEBUG
 	for (int x = 0; x < (data->ac - 2); x++)
-		printf("cmd[%d]:%s\n",x,data->bin[x].cmd[1]);
+		printf("cmd[%d]:%s\n",x,data->cmd[x].cmd[1]);
 	// for (int x = 0; data->bin_dir[x]; x++)
 		// printf("bin[%d]:%s\n",x,data->bin_dir[x]);
 }

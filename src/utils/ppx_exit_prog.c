@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:12:07 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/10 15:46:08 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/11 15:47:32 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	ppx_free_bindir(t_data *data)
 static void	ppx_free_cmd_struct(t_data *data)
 {
 	//TODO free `cmd` var
-	free(data->bin);
+	free(data->cmd);
 }
 
 
@@ -42,7 +42,7 @@ static void	ppx_prog_free(t_data *data)
 {
 	if (data->bin_dir)
 		ppx_free_bindir(data);
-	if (data->bin)
+	if (data->cmd)
 		ppx_free_cmd_struct(data);
 }
 
