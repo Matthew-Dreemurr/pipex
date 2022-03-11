@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:23:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/12 00:01:26 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/12 00:15:10 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	ppx_populate_cmd(t_data *data, char **av)
 }
 
 /**
- * @brief Split all `$PATH` in `data->bin_dir`.
+ * @brief Split all `env $PATH` in `data->bin_dir`.
  */
 static void	ppx_init_bindir(t_data *data, char **env)
 {
@@ -70,6 +70,11 @@ static void	ppx_vect_dir_path(t_data *data, t_vector *vec, char *dir, char *cmd)
 		ppx_exit_prog(EXIT_FAILURE, data, "vect_cat fail !\n");
 }
 
+/**
+ * @brief Will find the binary file for eatch command
+ *          and check if is executable.
+ *        Will store in data->cmd[x].bin
+ */
 static void	ppx_find_cmd_dir(t_data *data)
 {
 	int			x;
@@ -83,7 +88,7 @@ static void	ppx_find_cmd_dir(t_data *data)
 		while (*tmp)
 		{
 			ppx_vect_dir_path(data, &data->vec, *tmp, data->cmd[x].cmd[0]);
-			if (access(data->vec.buff, R_OK) != -1)
+			if (access(data->vec.buff, X_OK) != -1)
 			{
 				data->cmd[x].bin = ft_strdup(data->vec.buff);
 				break ;
@@ -101,6 +106,10 @@ static void	ppx_find_cmd_dir(t_data *data)
 
 #include <stdio.h>//TODO REMOVE
 #include <unistd.h>
+/**
+ * @brief Will init all data, will free data->cmd[x].cmd[0]
+ *                        and replace with data->cmd[x].bin.
+ */
 void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 {
 	data->ac = ac - 1;
@@ -111,14 +120,21 @@ void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 		ppx_exit_prog(EXIT_FAILURE, data, "Fail malloc **data !\n");
 	ppx_populate_cmd(data, av);
 	ppx_init_bindir(data, env);
-	ppx_find_cmd_dir(data);//XXX TODO Faire les execution des bin.
+	ppx_find_cmd_dir(data);
 
 //TODO REMOVE DEBUG
 	for (int x = 0; x < (data->ac - 2); x++)
 	{
-		printf("cmd[%d]:%s %s\n",x,data->cmd[x].bin, data->cmd[x].cmd[1]);
+		printf("cmd[%d]: %-12s ",x,data->cmd[x].bin);
+		for (int y = 1; data->cmd[x].cmd[y]; y++)
+			printf("[%s] ",  data->cmd[x].cmd[y]);
+		printf("\n");
 	}
-	free(data->cmd[0].cmd[0]);
-	data->cmd[0].cmd[0] = data->cmd[0].bin;
-	execve(data->cmd[0].bin, data->cmd[0].cmd, env);
+	for (int v = 0; v < (data->ac - 2); v++)
+	{
+		free(data->cmd[v].cmd[0]);
+		data->cmd[v].cmd[0] = data->cmd[v].bin;
+		execve(data->cmd[v].bin, data->cmd[v].cmd, env);
+	}
+	
 }
