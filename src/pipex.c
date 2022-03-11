@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 17:05:49 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/10 14:44:37 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/11 23:37:42 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ static void	ppx_check_file(int ac, char **arg)
 	else if (PPX_DEBUG)
 		ft_putstr_fd("[OK] write file2\n", STDOUT_FILENO);
 }
-
-
 
 /**
  * @brief `./pipex file1 cmd1 cmd2 <...> file2`.

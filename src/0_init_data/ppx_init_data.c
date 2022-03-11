@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:23:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/11 17:36:42 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/12 00:01:26 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static void	ppx_init_bindir(t_data *data, char **env)
 		ppx_exit_prog(EXIT_FAILURE, NULL, "Fail ft_plit(); to `data->bin_dir`");
 }
 
-
 static void	ppx_vect_dir_path(t_data *data, t_vector *vec, char *dir, char *cmd)
 {
 	if (!vect_write(vec, dir))
@@ -100,8 +99,8 @@ static void	ppx_find_cmd_dir(t_data *data)
 	}
 }
 
-
 #include <stdio.h>//TODO REMOVE
+#include <unistd.h>
 void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 {
 	data->ac = ac - 1;
@@ -119,4 +118,7 @@ void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 	{
 		printf("cmd[%d]:%s %s\n",x,data->cmd[x].bin, data->cmd[x].cmd[1]);
 	}
+	free(data->cmd[0].cmd[0]);
+	data->cmd[0].cmd[0] = data->cmd[0].bin;
+	execve(data->cmd[0].bin, data->cmd[0].cmd, env);
 }
