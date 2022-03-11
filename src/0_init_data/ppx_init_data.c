@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:23:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/11 12:00:09 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/11 12:07:02 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,15 @@ static void	ppx_init_bindir(t_data *data, char **env)
 
 static void	ppx_find_cmd_dir(t_data *data)
 {
-	//TODO
+	int	x;
+
+	x = 0;
+	while (x < (data->ac - 2))
+	{
+		while//TODO
+			if (access(data->bin[x].cmd[0], X_OK))
+				printf("find %s%s\n", data->bin[x].cmd[0])//TODO WIP check to find the bin path
+	}
 }
 
 
