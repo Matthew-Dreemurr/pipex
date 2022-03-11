@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:23:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/11 15:50:02 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/11 16:03:10 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,26 @@ static void	ppx_find_cmd_dir(t_data *data)
 {
 	int			x;
 	char		**tmp;
-	t_vector	vec;
 
-	vect_init_strict(&vec, 32);
+	vect_init_strict(&data->vec, 32);
 	x = 0;
 	while (x < (data->ac - 2))
 	{
 		tmp = data->bin_dir;
 		while (*tmp)
 		{
-			ppx_vect_dir_path(data, &vec, *tmp, data->cmd[x].cmd[0]);
-			if (access(vec.buff, R_OK) != -1)
-				printf("find %s\n", vec.buff);
+			ppx_vect_dir_path(data, &data->vec, *tmp, data->cmd[x].cmd[0]);
+			if (access(data->vec.buff, R_OK) != -1)
+			{
+				printf("find %s\n", data->vec.buff);//TODO ERR MSG IF NOT FOUND
+				break ;
+			}
 			tmp++;
+			if (!(*tmp))
+			{
+				ft_putstr_fd(data->cmd[x].cmd[0], STDOUT_FILENO);
+				ppx_exit_prog(EXIT_FAILURE, data, "\nCommand not found !\n");
+			}
 		}
 		x++;
 	}
@@ -100,6 +107,7 @@ void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 {
 	data->ac = ac - 1;
 	data->av = av;
+	data->vec.buff = NULL;
 		data->cmd = (t_cmd *)malloc(sizeof(t_cmd) * (data->ac - 2));
 	if (!data->cmd)
 		ppx_exit_prog(EXIT_FAILURE, data, "Fail malloc **data !\n");
