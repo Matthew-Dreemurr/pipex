@@ -41,7 +41,8 @@ static void	ppx_free_cmd_struct(t_data *data)
 	x = 0;
 	while (x < (data->ac - 2))
 	{
-	o = 0;
+		o = 0;
+		free(data->cmd[x].bin);
 		while (data->cmd[x].cmd[o])
 		{
 			free (data->cmd[x].cmd[o]);
