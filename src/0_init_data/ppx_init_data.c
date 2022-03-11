@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:23:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/10 16:37:34 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/11 12:00:09 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,18 @@ static void	ppx_populate_cmd(t_data *data, char **av)
 	int		index;
 	int		x;
 	int		len;
-	int		end;
 
 	index = 0;
 	x = 2;
 	while (index < (data->ac - 2))
 	{
 		len = strlen_protect(av[x]);
-		end = len_chrchr_strict(av[x], ' ');
-		if (!end)
-			end = len;
 		if (!len)
 			ppx_exit_prog(EXIT_FAILURE, data, "Empty commad ?\n");
-		data->bin[index].cmd = ft_substr(av[x], 0, end);
+		data->bin[index].cmd = ft_split(av[x], ' ');
 		x++;
 		index++;
-		//TODO WIP MAKE PPX_POPULATE_FLAG
-		//  Put flag in data->bin.flag (need to andle multiple flag), NULL if no flag
-		//  Test execve(); to see if we need to séperate multi flag.
 	}
-
 }
 
 /**
@@ -67,6 +59,12 @@ static void	ppx_init_bindir(t_data *data, char **env)
 		ppx_exit_prog(EXIT_FAILURE, NULL, "Fail ft_plit(); to `data->bin_dir`");
 }
 
+static void	ppx_find_cmd_dir(t_data *data)
+{
+	//TODO
+}
+
+
 #include <stdio.h>//TODO
 void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 {
@@ -77,11 +75,11 @@ void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 		ppx_exit_prog(EXIT_FAILURE, data, "Fail malloc **data !\n");
 	ppx_populate_cmd(data, av);
 	ppx_init_bindir(data, env);
-	// ppx_find_cmd_dir(data);
+	ppx_find_cmd_dir(data);
 
 //TODO REMOVE DEBUG
 	for (int x = 0; x < (data->ac - 2); x++)
-		printf("cmd[%d]:%s\n",x,data->bin[x].cmd);
+		printf("cmd[%d]:%s\n",x,data->bin[x].cmd[1]);
 	// for (int x = 0; data->bin_dir[x]; x++)
 		// printf("bin[%d]:%s\n",x,data->bin_dir[x]);
 }
