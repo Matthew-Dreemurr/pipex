@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:23:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/11 17:31:08 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/11 17:36:42 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static void	ppx_find_cmd_dir(t_data *data)
 }
 
 
-#include <stdio.h>//TODO
+#include <stdio.h>//TODO REMOVE
 void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 {
 	data->ac = ac - 1;
@@ -112,13 +112,11 @@ void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 		ppx_exit_prog(EXIT_FAILURE, data, "Fail malloc **data !\n");
 	ppx_populate_cmd(data, av);
 	ppx_init_bindir(data, env);
-	ppx_find_cmd_dir(data);
+	ppx_find_cmd_dir(data);//XXX TODO Faire les execution des bin.
 
 //TODO REMOVE DEBUG
-	for (int x = 0; data->bin_dir[x]; x++)
-	{
-		printf("bin[%d]:%s\n",x,data->cmd[x].bin);
-	}
 	for (int x = 0; x < (data->ac - 2); x++)
-		printf("flag[%d]:%s\n",x,data->cmd[x].cmd[1]);
+	{
+		printf("cmd[%d]:%s %s\n",x,data->cmd[x].bin, data->cmd[x].cmd[1]);
+	}
 }
