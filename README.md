@@ -14,8 +14,31 @@ This project has been coded according to the `NormeV3` standard.
 
 
 
-## The logic
+## How work the pipe ?
+
+To reproduce the pipe behviour we need too create a pipe that will redirect the input and output of eatch command we are going to execute a a child with `fork();`.
+
+`ls -l | wc -l`
+
+```
+(stdin)  +-------+
+-------->| ls -l |--+
+         +-------+  |
+                    | (stdout)
+                   +-+
+                   |P|
+                   |I|
+                   |P|
+                   |E|
+                   +-+
+                    |
+ (stdout) +------+  |(stdin)
+<---------|wc -l |--+
+          +------+
+```
 
 
 
+
+---
 This work is published under the terms of **[42 Unlicense](https://github.com/gcamerli/42unlicense)**.
