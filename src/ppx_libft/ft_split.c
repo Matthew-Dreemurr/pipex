@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 10:16:53 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/10 14:44:26 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/13 13:03:17 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	**alloc_tab(const char *str, char c)
 	if (!str)
 		return (NULL);
 	size = word_count(str, c) + 1;
-	tab = (char **)malloc(sizeof(char *) * size);
+	tab = (char **)ft_calloc(size, sizeof(char *));
 	if (!tab)
 		return (NULL);
 	while (--size)
@@ -81,7 +81,7 @@ static char	*world_dup(const char *str, char c)
 	ptr = (void *)str;
 	while (*(const char *)ptr && *(const char *)ptr != c)
 		ptr++;
-	ptr = (char *)malloc(sizeof(char) * (size_t)((const char *)ptr - str) + 1);
+	ptr = ft_calloc((size_t)((const char *)ptr - str) + 1, sizeof(char));
 	if (!ptr)
 		return (NULL);
 	start = (char *)ptr;

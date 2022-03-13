@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:23:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/12 00:34:22 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/13 12:59:39 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,14 +115,18 @@ void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 	data->ac = ac - 1;
 	data->av = av;
 	data->vec.buff = NULL;
-		data->cmd = (t_cmd *)malloc(sizeof(t_cmd) * (data->ac - 2));
+		data->cmd = (t_cmd *)ft_calloc((data->ac - 2), sizeof(t_cmd));
 	if (!data->cmd)
 		ppx_exit_prog(EXIT_FAILURE, data, "Fail malloc **data !\n");
 	ppx_populate_cmd(data, av);
 	ppx_init_bindir(data, env);
 	ppx_find_cmd_dir(data);
 
+
+
 //TODO REMOVE DEBUG
+/**
+**/
 	for (int x = 0; x < (data->ac - 2); x++)
 	{
 		printf("cmd[%d]: %-12s ",x,data->cmd[x].bin);
@@ -130,15 +134,17 @@ void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 			printf("[%s] ",  data->cmd[x].arg[y]);
 		printf("\n");
 	}
-	for (int v = 0; v < (data->ac - 2); v++)
-	{
-		free(data->cmd[v].arg[0]);
-		data->cmd[v].arg[0] = data->cmd[v].bin;
-		printf("%s\n", data->cmd[v].arg[0]);
-	}
+	// for (int v = 0; v < (data->ac - 2); v++)
+	// {
+		// free(data->cmd[v].arg[0]);
+		// data->cmd[v].arg[0] = data->cmd[v].bin;
+		// printf("%s\n", data->cmd[v].arg[0]);
+	// }
 /** //TODO WIP
  * Need to find a other logic to store data
  * #1 /bin/cmd
  * #2 /bin/cmd [f1] [..]
  */
+
+	// printf("[[%d]]", execve(data->cmd[0].bin, data->cmd[0].arg, env));
 }

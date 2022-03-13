@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:42:55 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/11 16:41:27 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/13 13:01:26 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 size_t	len_chrchr(char *str, char c);
 size_t	len_chrchr_strict(char *str, char c);
 char	*ft_strdup(const char *s1);
-
+void	*ft_calloc(size_t count, size_t size);
+void	ft_bzero(void *s, size_t n);
 #endif

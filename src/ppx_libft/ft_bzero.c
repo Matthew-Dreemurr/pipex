@@ -1,33 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vect_init.c                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/09 13:24:10 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/13 13:04:29 by mahadad          ###   ########.fr       */
+/*   Created: 2021/10/01 17:20:28 by mahadad           #+#    #+#             */
+/*   Updated: 2022/03/13 13:00:34 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector.h"
 #include "ppx_libft.h"
-#include <stdlib.h>
 
-char	*vect_init_strict(t_vector *vec, size_t size)
-{
-	if (!vec || !size)
-		return (VEC_EXIT_FAILURE);
-	vec->len = 0;
-	vec->max = size;
-	vec->buff = (char *)calloc(size, sizeof(char));
-	if (!vec->buff)
-		return (VEC_EXIT_FAILURE);
-	vec->buff[0] = '\0';
-	return (vec->buff);
-}
+/*
+*  LIBRARY
+*       Standard C Library (libc, -lc)
+*  
+*  SYNOPSIS
+*       lude <strings.h>
+*  
+*       void
+*       bzero(void *s, size_t n);
+*  
+*  DESCRIPTION
+*       The bzero() function writes n zeroed bytes to the string s.  If n is
+*       zero, bzero() does nothing.
+*/
 
-char	*vect_init(t_vector *vec)
+void	ft_bzero(void *s, size_t n)
 {
-	return (vect_init_strict(vec, VEC_BUFFER_SIZE));
+	unsigned char	*cpy;
+
+	cpy = (unsigned char *)s;
+	while (n)
+	{
+		*cpy = (char) '\0';
+		cpy++;
+		n--;
+	}
 }

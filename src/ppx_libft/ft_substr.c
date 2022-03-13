@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:20:29 by mahadad           #+#    #+#             */
-/*   Updated: 2021/10/20 12:46:47 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/13 13:03:43 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		s++;
 	len_alloc = strlen_protect(s);
 	len_alloc = (size_t []){len, len_alloc}[len_alloc < len];
-	str = (char *)malloc((len_alloc + 1) * sizeof(char));
+	str = (char *)ft_calloc((len_alloc + 1), sizeof(char));
 	if (!str)
 		return (NULL);
 	str_ptr = str;
