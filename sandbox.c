@@ -26,7 +26,7 @@ main(int argc, char *argv[])
 	char buff[500];
 	while (1)//Test stdin
 	{
-		printf("Read fd 0 [%lu]\n", read(STDIN_FILENO, buff, 1));
+		printf("Read fd 0 [%lu]\n", read(STDIN_FILENO, buff, 499));
 		if (*buff == 'q')
 			break;
 	}
@@ -42,7 +42,7 @@ main(int argc, char *argv[])
 	
 	while (1)//Test read stdin in fd 5
 	{
-		printf("Read fd 5 [%lu]\n", read(5, buff, 1));
+		printf("Read fd 5 [%lu]\n", read(5, buff, 499));
 		if (*buff == 'q')
 			break;
 	}
