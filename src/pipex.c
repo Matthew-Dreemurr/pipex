@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 17:05:49 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/11 23:37:42 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/15 15:48:47 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,15 @@
 #include "ppx_libft.h"
 #include "ppx_exit_prog.h"
 #include "ppx_debug.h"
+
+static void	ppx_init_var(t_data *data, int ac, char **av)
+{
+	data->ac = ac - 1;
+	data->av = av;
+	data->cmd = NULL;
+	data->bin_dir = NULL;
+	data->vec.buff = NULL;
+}
 
 static void	ppx_check_file(int ac, char **arg)
 {
@@ -57,10 +66,11 @@ int	main(int ac, char **av, char **env)
 {
 	t_data	data;
 
+	ppx_init_var(&data, ac, av);
 	if (ac < 5)
 		ppx_exit_prog(EXIT_FAILURE, NULL, PPX_ERR_USAGE);
 	ppx_check_file(ac, av);
-	ppx_init_data(&data, ac, av, env);
+	ppx_init_data(&data, env);
 	if (PPX_DEBUG)
 		ft_putstr_fd("Clean exit\n", STDOUT_FILENO);
 	ppx_exit_prog(EXIT_SUCCESS, &data, NULL);

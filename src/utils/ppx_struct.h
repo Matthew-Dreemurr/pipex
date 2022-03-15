@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:22:26 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/12 00:24:11 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/15 14:52:26 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_data
 	int			ac;
 	char		**av;
 	char		**bin_dir;
+	int			in_file;
+	int			out_file;
 	t_vector	vec;
 }				t_data;
 

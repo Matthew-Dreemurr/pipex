@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:12:07 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/12 00:32:56 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/15 15:47:11 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include "ppx_debug.h"
 #include "ppx_struct.h"
 #include "ppx_libft.h"
-
 
 static void	ppx_free_set_null(void *ptr)
 {
@@ -65,10 +64,10 @@ static void	ppx_free_cmd_struct(t_data *data)
 
 static void	ppx_prog_free(t_data *data)
 {
-	if (data->bin_dir)
-		ppx_free_bindir(data);
-	if (data->cmd)
-		ppx_free_cmd_struct(data);
+	ppx_free_bindir(data);
+	ppx_free_cmd_struct(data);
+	ppx_free_set_null(data->vec.buff);
+	
 }
 
 void	ppx_exit_prog(int ret, t_data *data, const char *debug)
@@ -80,11 +79,11 @@ void	ppx_exit_prog(int ret, t_data *data, const char *debug)
 	else
 		(void)debug;
 	if (ret == EXIT_FAILURE)
+	{
+		if (!debug)
+			perror(NULL);
 		ft_putstr_fd("Error\n", STDERR_FILENO);
-
-	ppx_free_set_null(data->vec.buff);
-
-	
+	}
 	// system("leaks pipex");
 	exit(ret);
 }

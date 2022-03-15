@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:23:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/15 12:02:38 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/15 15:28:04 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 /**
  * @brief Store all cmd form `av` to `data->cmd[x].arg`.
  */
-static void	ppx_populate_cmd(t_data *data, char **av)
+static void	ppx_populate_cmd(t_data *data)
 {
 	int		index;
 	int		x;
@@ -36,10 +36,10 @@ static void	ppx_populate_cmd(t_data *data, char **av)
 	x = 2;
 	while (index < (data->ac - 2))
 	{
-		len = strlen_protect(av[x]);
+		len = strlen_protect(data->av[x]);
 		if (!len)
 			ppx_exit_prog(EXIT_FAILURE, data, "Empty commad ?\n");
-		data->cmd[index].arg = ft_split(av[x], ' ');
+		data->cmd[index].arg = ft_split(data->av[x], ' ');
 		x++;
 		index++;
 	}
@@ -104,22 +104,18 @@ static void	ppx_find_cmd_dir(t_data *data)
 	}
 }
 
-#include <stdio.h>//TODO REMOVE
-#include <unistd.h>
-static void	ppx_test_fork(t_data *data, char **env);
+//TODO REMOVE
+#include <stdio.h>
 /**
  * @brief Will init all data, will free data->cmd[x].arg[0]
  *                        and replace with data->cmd[x].bin.
  */
-void	ppx_init_data(t_data *data, int ac, char **av, char **env)
+void	ppx_init_data(t_data *data, char **env)
 {
-	data->ac = ac - 1;
-	data->av = av;
-	data->vec.buff = NULL;
-		data->cmd = (t_cmd *)ft_calloc((data->ac - 2), sizeof(t_cmd));
+	data->cmd = (t_cmd *)ft_calloc((data->ac - 2), sizeof(t_cmd));
 	if (!data->cmd)
 		ppx_exit_prog(EXIT_FAILURE, data, "Fail malloc **data !\n");
-	ppx_populate_cmd(data, av);
+	ppx_populate_cmd(data);
 	ppx_init_bindir(data, env);
 	ppx_find_cmd_dir(data);
 
@@ -143,44 +139,8 @@ void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 		// printf("%s\n", data->cmd[v].arg[0]);
 	// }
 	// printf("[[%d]]", execve(data->cmd[0].bin, data->cmd[0].arg, env));
-	ppx_test_fork(data, env);
+	// ppx_test_fork(data, env);
 }
 
-static void	ppx_test_fork(t_data *data, char **env)
-{
-	// pid_t	cpid;
-	int		uwu[2];
-	int		uwuq[2];
-
-	// printf("cpid [%d]\n", cpid = fork());
-	// if (!cpid)
-	// {
-		// printf("end\n");
-		// ppx_exit_prog(EXIT_SUCCESS, data, "Clean quit test fork\n");
-	// }
-	// else
-	// {
-		if (pipe(uwu))
-		{
-			ft_putstr_fd("error!!!\n", 1);
-			return ;
-		}
-		dup2(STDOUT_FILENO, uwu[0]);
-		execve(data->cmd[0].bin, data->cmd[0].arg, env);
-		if (pipe(uwuq))
-		{
-			ft_putstr_fd("error!!!\n", 1);
-			return ;
-		}
-		close(uwu[0]);
-		dup2(uwu[1], STDIN_FILENO);
-		dup2(STDOUT_FILENO, uwuq[0]);
-		execve(data->cmd[1].bin, data->cmd[1].arg, env);
-		dup2(uwuq[1], STDOUT_FILENO);
-		execve(data->cmd[1].bin, data->cmd[1].arg, env);
-		dup2(STDOUT_FILENO, uwuq[0]);
-		execve(data->cmd[1].bin, data->cmd[1].arg, env);
-		dup2(uwuq[1], STDOUT_FILENO);
-		ft_putstr_fd("end\n", 1);
-	// }
-}
+// static void	ppx_test_fork(t_data *data, char **env)
+// {
