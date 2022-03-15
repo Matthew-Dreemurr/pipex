@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 17:05:49 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/15 15:48:47 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/15 16:01:57 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	main(int ac, char **av, char **env)
 		ppx_exit_prog(EXIT_FAILURE, NULL, PPX_ERR_USAGE);
 	ppx_check_file(ac, av);
 	ppx_init_data(&data, env);
+	ppx_run(&data, env);
 	if (PPX_DEBUG)
 		ft_putstr_fd("Clean exit\n", STDOUT_FILENO);
 	ppx_exit_prog(EXIT_SUCCESS, &data, NULL);
