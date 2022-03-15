@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:50:21 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/15 17:34:34 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/15 18:17:45 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,58 +32,44 @@ static void	ppx_open_files(t_data *data)
 	if (0 > data->out_file)
 		ppx_exit_prog(EXIT_FAILURE, data, "Fail to open the output file\n");
 }
-/**
-**/
-#include <stdio.h> //TODO REMOVE
-static void	ppx_middle_cmd(t_data *data, char **env, int fds[])
-{
-	int	frk;
-	printf("PParent : %d,%d\n", fds[0], fds[1]);
-	frk = fork();
-	if (frk > 0)
-	{
-		return ;
-	}
-	else if (!frk)
-	{
-		printf("CChild : %d,%d\n", fds[0], fds[1]);
-		close(fds[1]);
-		dup2(fds[0], STDIN_FILENO);
-		dup2(data->out_file, STDOUT_FILENO);
-		execve(data->cmd[1].bin, data->cmd[1].arg, env);
-	}
-	
-}
+
 
 void	ppx_run(t_data *data, char **env)
 {
-	int	frk;
-	int	fds[2];
+	int	pipe_[2];
+	pid_t	id;
+	int		status;
 
 	ppx_open_files(data);
-	data->old_stdout = dup(STDOUT_FILENO);
-	if (pipe(fds))
-		ppx_exit_prog(EXIT_FAILURE, data, NULL);
-	printf("Parent : %d,%d\n", fds[0], fds[1]);
-	frk = fork();//first cmd
-	if (frk > 0)//end
+	pipe(pipe_);
+
+	id = fork();
+	if (!id)
 	{
-		ppx_middle_cmd(data, env, fds);
-		printf("end_middle_cmd\n");
-		dup2(STDOUT_FILENO, STDOUT_FILENO);
-		close(data->in_file);
-		close(data->out_file);
-		close(fds[0]);
-		close(fds[1]);
-		ppx_exit_prog(EXIT_SUCCESS, data, "Clean exit ppx_run\n");
-	}
-	else if (!frk)//exe fist cmd and pipe
-	{
-		printf("Child : %d,%d\n", fds[0], fds[1]);
+		close(pipe_[0]);
 		dup2(data->in_file, STDIN_FILENO);
-		dup2(fds[1], STDOUT_FILENO);
+		dup2(pipe_[1], STDOUT_FILENO);
 		execve(data->cmd[0].bin, data->cmd[0].arg, env);
 	}
-	else
-		;//TODO return error
+	id = fork();
+	if (!id)
+	{
+		close(pipe_[1]);
+		dup2(pipe_[0], STDIN_FILENO);
+		dup2(pipe_[1], STDOUT_FILENO);
+		execve(data->cmd[1].bin, data->cmd[1].arg, env);
+	}
+	id = fork();
+	if (!id)
+	{
+		dup2(pipe_[0], STDIN_FILENO);
+		dup2(data->out_file, STDOUT_FILENO);
+		close(pipe_[1]);
+		execve(data->cmd[2].bin, data->cmd[2].arg, env);
+	}
+		close(pipe_[1]);
+		close(pipe_[0]);
+		close(data->in_file);
+		close(data->out_file);
+		waitpid(id, &status, 0);
 }
