@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:23:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/13 14:12:17 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/15 12:02:38 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,17 +148,39 @@ void	ppx_init_data(t_data *data, int ac, char **av, char **env)
 
 static void	ppx_test_fork(t_data *data, char **env)
 {
-	pid_t	cpid;
+	// pid_t	cpid;
+	int		uwu[2];
+	int		uwuq[2];
 
-	printf("cpid [%d]\n", cpid = fork());
-	if (!cpid)
-	{
-		printf("end\n");
-		ppx_exit_prog(EXIT_SUCCESS, data, "Clean quit test fork\n");
-	}
-	else
-	{
+	// printf("cpid [%d]\n", cpid = fork());
+	// if (!cpid)
+	// {
+		// printf("end\n");
+		// ppx_exit_prog(EXIT_SUCCESS, data, "Clean quit test fork\n");
+	// }
+	// else
+	// {
+		if (pipe(uwu))
+		{
+			ft_putstr_fd("error!!!\n", 1);
+			return ;
+		}
+		dup2(STDOUT_FILENO, uwu[0]);
 		execve(data->cmd[0].bin, data->cmd[0].arg, env);
-		ft_putstr_fd("error!!! evecve\n", 1);
-	}
+		if (pipe(uwuq))
+		{
+			ft_putstr_fd("error!!!\n", 1);
+			return ;
+		}
+		close(uwu[0]);
+		dup2(uwu[1], STDIN_FILENO);
+		dup2(STDOUT_FILENO, uwuq[0]);
+		execve(data->cmd[1].bin, data->cmd[1].arg, env);
+		dup2(uwuq[1], STDOUT_FILENO);
+		execve(data->cmd[1].bin, data->cmd[1].arg, env);
+		dup2(STDOUT_FILENO, uwuq[0]);
+		execve(data->cmd[1].bin, data->cmd[1].arg, env);
+		dup2(uwuq[1], STDOUT_FILENO);
+		ft_putstr_fd("end\n", 1);
+	// }
 }
