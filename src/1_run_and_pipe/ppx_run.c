@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:50:21 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/15 18:17:45 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/16 11:52:18 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,43 +33,45 @@ static void	ppx_open_files(t_data *data)
 		ppx_exit_prog(EXIT_FAILURE, data, "Fail to open the output file\n");
 }
 
-
+#include <stdio.h>//TODO REMOVE
 void	ppx_run(t_data *data, char **env)
 {
-	int	pipe_[2];
-	pid_t	id;
+	int	pipe1[2], pipe2[2];
+	pid_t	pid;
 	int		status;
 
 	ppx_open_files(data);
-	pipe(pipe_);
 
-	id = fork();
-	if (!id)
+	write(data->out_file, "urmom", 6);
+	status = 0;
+	pipe(pipe1);
+	pid = fork();
+	if (!pid)
 	{
-		close(pipe_[0]);
 		dup2(data->in_file, STDIN_FILENO);
-		dup2(pipe_[1], STDOUT_FILENO);
+		dup2(pipe1[1], STDOUT_FILENO);
 		execve(data->cmd[0].bin, data->cmd[0].arg, env);
 	}
-	id = fork();
-	if (!id)
+	waitpid(pid, &status, 1);
+	pipe(pipe2);
+	pid = fork();
+	if (!pid)
 	{
-		close(pipe_[1]);
-		dup2(pipe_[0], STDIN_FILENO);
-		dup2(pipe_[1], STDOUT_FILENO);
+		dup2(pipe1[0], STDIN_FILENO);
+		dup2(pipe2[1], STDOUT_FILENO);
 		execve(data->cmd[1].bin, data->cmd[1].arg, env);
 	}
-	id = fork();
-	if (!id)
+	waitpid(pid, &status, 1);
+	pid = fork();
+	if (!pid)
 	{
-		dup2(pipe_[0], STDIN_FILENO);
+		dup2(pipe2[0], STDIN_FILENO);
 		dup2(data->out_file, STDOUT_FILENO);
-		close(pipe_[1]);
 		execve(data->cmd[2].bin, data->cmd[2].arg, env);
 	}
-		close(pipe_[1]);
-		close(pipe_[0]);
-		close(data->in_file);
-		close(data->out_file);
-		waitpid(id, &status, 0);
+	waitpid(pid, &status, 1);
+	// close(pipe1[1]);
+	// close(pipe2[0]);
+	// close(data->in_file);
+	// close(data->out_file);
 }
