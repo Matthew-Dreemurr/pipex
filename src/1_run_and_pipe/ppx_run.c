@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:50:21 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/16 13:46:59 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/16 13:53:58 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ void	ppx_run(t_data *data, char **env)
 		dup2(pipe1[1], STDOUT_FILENO);
 		execve(data->cmd[0].bin, data->cmd[0].arg, env);
 	}
-	waitpid(pid, &status, 1);
-
 	pipe(pipe2);
 	pid = fork();
 	if (!pid)
@@ -65,9 +63,7 @@ void	ppx_run(t_data *data, char **env)
 		dup2(pipe2[1], STDOUT_FILENO);
 		execve(data->cmd[1].bin, data->cmd[1].arg, env);
 	}
-	waitpid(pid, &status, 1);
 	pid = fork();
-
 	if (!pid)
 	{
 		ft_putstr_fd("test3\n", STDOUT_FILENO);
@@ -76,7 +72,7 @@ void	ppx_run(t_data *data, char **env)
 		// write(STDOUT_FILENO, "1234", 4);
 		execve(data->cmd[2].bin, data->cmd[2].arg, env);
 	}
-	waitpid(pid, &status, 1);
+	waitpid(pid, &status, 0);//TODO close all file descriport
 	// close(pipe1[1]);
 	// close(pipe2[0]);
 	// close(data->in_file);
