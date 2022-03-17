@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:12:07 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/17 17:27:45 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/17 17:55:22 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,13 @@ static void	ppx_free_cmd_struct(t_data *data)
 	{
 		o = 0;
 		ppx_free_set_null(data->cmd[x].bin);
-		while (data->cmd[x].arg[o])
+		if (data->cmd[x].arg)
 		{
-			ppx_free_set_null (data->cmd[x].arg[o]);
-			o++;
+			while (data->cmd[x].arg[o])
+			{
+				ppx_free_set_null (data->cmd[x].arg[o]);
+				o++;
+			}
 		}
 		ppx_free_set_null (data->cmd[x].arg);
 		x++;
@@ -60,8 +63,10 @@ static void	ppx_free_cmd_struct(t_data *data)
 
 static void	ppx_prog_free(t_data *data)
 {
-	ppx_free_bindir(data);
-	ppx_free_cmd_struct(data);
+	if (data->bin_dir)
+		ppx_free_bindir(data);
+	if (data->cmd)
+		ppx_free_cmd_struct(data);
 	ppx_free_set_null(data->vec.buff);
 }
 

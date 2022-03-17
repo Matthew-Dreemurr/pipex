@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:23:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/17 17:27:03 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/17 17:48:42 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	ppx_populate_cmd(t_data *data)
 	x = 2;
 	while (index < (data->ac - 2))
 	{
+		data->cmd[index].arg = NULL;
 		len = strlen_protect(data->av[x]);
 		if (!len)
 			ppx_exit_prog(EXIT_FAILURE, data, "Empty commad ?\n");
