@@ -6,7 +6,7 @@
 #    By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 11:30:03 by mahadad           #+#    #+#              #
-#    Updated: 2022/03/17 17:20:58 by mahadad          ###   ########.fr        #
+#    Updated: 2022/03/17 17:21:43 by mahadad          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,8 +114,8 @@ sub:
 git:
 	@git pull
 	@git status --short
-	# @while true; do read -p "Continue [y/N]" resp; if [[ $$resp =~ ^[Yy]$$ ]]; then exit 0; else exit 1; fi; done
-	# @git diff
+	@while true; do read -p "Continue [y/N]" resp; if [[ $$resp =~ ^[Yy]$$ ]]; then exit 0; else exit 1; fi; done
+	@git diff
 	@-git add .
 	@git commit -am "Makefile push `date +'%Y-%m-%d %H:%M:%S'`"
 	@-git push
