@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:23:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/15 15:28:04 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/17 17:27:03 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,6 @@ static void	ppx_find_cmd_dir(t_data *data)
 	}
 }
 
-//TODO REMOVE
-#include <stdio.h>
 /**
  * @brief Will init all data, will free data->cmd[x].arg[0]
  *                        and replace with data->cmd[x].bin.
@@ -118,29 +116,4 @@ void	ppx_init_data(t_data *data, char **env)
 	ppx_populate_cmd(data);
 	ppx_init_bindir(data, env);
 	ppx_find_cmd_dir(data);
-
-
-
-
-//TODO REMOVE DEBUG
-/**
-**/
-	for (int x = 0; x < (data->ac - 2); x++)
-	{
-		printf("cmd[%d]: %-12s ",x,data->cmd[x].bin);
-		for (int y = 1; data->cmd[x].arg[y]; y++)
-			printf("[%s] ",  data->cmd[x].arg[y]);
-		printf("\n");
-	}
-	// for (int v = 0; v < (data->ac - 2); v++)
-	// {
-		// free(data->cmd[v].arg[0]);
-		// data->cmd[v].arg[0] = data->cmd[v].bin;
-		// printf("%s\n", data->cmd[v].arg[0]);
-	// }
-	// printf("[[%d]]", execve(data->cmd[0].bin, data->cmd[0].arg, env));
-	// ppx_test_fork(data, env);
 }
-
-// static void	ppx_test_fork(t_data *data, char **env)
-// {

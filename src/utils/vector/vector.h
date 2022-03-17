@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 23:52:54 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/10 17:22:23 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/17 17:28:27 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #  include "wraloc.h"
 # endif
 
-#include "ppx_libft.h"
+# include "ppx_libft.h"
 
 # define VEC_EXIT_FAILURE ((void *)0)
 # define VEC_EXIT_SUCCESS ((int)1)
@@ -51,6 +51,6 @@ char		*vect_utoa_cat(unsigned int n, t_vector *vec);
 char		*vect_utohex_cat(unsigned int n, t_vector *vec, int upper);
 char		*vect_ultohex_cat(size_t n, t_vector *vec, int upper);
 int			putvectbuff_ret_int(t_vector *vect);
-char	*vect_write(t_vector *vec, char *str);
+char		*vect_write(t_vector *vec, char *str);
 
 #endif

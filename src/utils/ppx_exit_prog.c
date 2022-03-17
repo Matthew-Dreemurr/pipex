@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:12:07 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/17 15:07:18 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/17 17:27:45 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ static void	ppx_free_set_null(void *ptr)
 	ptr = NULL;
 }
 
-#include <stdio.h>//TODO REMOVE
-/**
- */
 static void	ppx_free_bindir(t_data *data)
 {
 	int	x;
@@ -61,13 +58,11 @@ static void	ppx_free_cmd_struct(t_data *data)
 	ppx_free_set_null(data->cmd);
 }
 
-
 static void	ppx_prog_free(t_data *data)
 {
 	ppx_free_bindir(data);
 	ppx_free_cmd_struct(data);
 	ppx_free_set_null(data->vec.buff);
-	
 }
 
 void	ppx_exit_prog(int ret, t_data *data, const char *debug)
@@ -84,6 +79,5 @@ void	ppx_exit_prog(int ret, t_data *data, const char *debug)
 			perror(NULL);
 		ft_putstr_fd("Error\n", STDERR_FILENO);
 	}
-	// system("leaks pipex");
 	exit(ret);
 }

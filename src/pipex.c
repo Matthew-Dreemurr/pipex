@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 17:05:49 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/17 15:07:32 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/17 17:24:20 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ int	main(int ac, char **av, char **env)
 {
 	t_data	data;
 
-	//TODO REMOVE
-	setbuf(stdout, NULL);
 	ppx_init_var(&data, ac, av);
 	if (ac < 5)
 		ppx_exit_prog(EXIT_FAILURE, NULL, PPX_ERR_USAGE);
