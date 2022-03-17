@@ -6,7 +6,7 @@
 #    By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 11:30:03 by mahadad           #+#    #+#              #
-#    Updated: 2022/03/10 14:00:30 by mahadad          ###   ########.fr        #
+#    Updated: 2022/03/17 17:20:58 by mahadad          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ all: $(DEP_INCLUDE_DIR) $(HEADER_DEP) $(NAME)
 
 $(OBJ_DIR)%.o: %.c $(HEADER)
 	@$(CC) $(CFLAGS) -c $< -o $@
-	@printf "\033[32;1m$@\033[32;0m\n"
+	@printf "\033[32;1m.\033[32;0m"
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
@@ -76,8 +76,8 @@ $(DEP_INCLUDE_DIR):
 	@printf "\033[32;1m[Create $(DEP_INCLUDE_DIR)]\033[32;0m\n"
 
 $(NAME): $(OBJ_DIR) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
-	@printf "\033[32;1m[== Linked OK ==]\033[32;0m\n"
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	@printf "\n\033[32;1m[== Linked OK ==]\033[32;0m\n"
 	@printf "\033[32;1m[== $(NAME) Created ! ==]\033[32;0m\n"
 	@if [ $D = "1" ]; then printf "\033[31;1m[/!\\ DEBUG ENABLE /!\\]\033[32;0m\n"; fi
 	@printf "[Compiled /w this flag $(CFLAGS)]"
@@ -92,6 +92,7 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
+	@rm -rf $(DEP_INCLUDE_DIR)
 	@printf "\033[31;1m[Remove $(NAME)]\033[32;0m\n"
 
 re: fclean all
@@ -102,14 +103,8 @@ re: fclean all
 h:
 	@echo "\033[1J"
 
-c:
-	@rm -rf $(OBJS)
-	@printf "\033[31;1m[Remove *.o]\033[32;0m\n"
-	@rm -rf $(OBJ_DIR)
-	@printf "\033[31;1m[Remove $(OBJ_DIR)]\033[32;0m\n"
-fc: c
-	@rm -f $(NAME)
-	@printf "\033[31;1m[Remove $(NAME)]\033[32;0m\n"
+c: clean
+fc: fclean
 r: fc all
 
 sub:
