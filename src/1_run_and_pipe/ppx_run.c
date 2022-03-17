@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:50:21 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/17 17:29:41 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/17 18:50:40 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ int	ppx_exe(t_data *data, int prevfd, int index)
 	int		status;
 	pid_t	pid;
 
+	status = 0;
 	if ((data->ac - 3) != index)
-		pipe(ppipe);
+		if (pipe(ppipe))
+			ppx_exit_prog(EXIT_FAILURE, data, NULL);
 	pid = fork();
 	if (!pid)
 	{
@@ -64,11 +66,11 @@ int	ppx_exe(t_data *data, int prevfd, int index)
 		ft_putstr_fd("Error execve fail!\n", STDERR_FILENO);
 		exit(EXIT_SUCCESS);
 	}
-	else if (pid == -1)
-		exit(EXIT_FAILURE);
+	waitpid(pid, &status, WNOHANG);
 	close(prevfd);
 	close(get_out(data, ppipe[1], index));
-	waitpid(pid, &status, WNOHANG);
+	if (pid == -1)
+		ppx_exit_prog(EXIT_FAILURE, data, "Fork failed!\n");
 	if ((data->ac - 3) != index)
 		return (ppx_exe(data, ppipe[0], index + 1));
 	return (WEXITSTATUS(status));
