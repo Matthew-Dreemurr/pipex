@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:50:21 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/17 14:55:38 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/17 15:04:44 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "pipex.h"
 #include "ppx_struct.h"
 #include "ppx_exit_prog.h"
+#include "ppx_debug.h"
 
 
 static void	ppx_open_files(t_data *data)
@@ -79,16 +80,16 @@ int	ppx_exe(t_data *data, int prevfd, int index)
 	waitpid(pid, &status, 0);
 	if ((data->ac - 3) != index)
 		return (ppx_exe(data, ppipe[0], index + 1));
-	return (0);
+	return (WEXITSTATUS(status));
 }
 
 
 
 
-void	ppx_run(t_data *data)
+int	ppx_run(t_data *data)
 {
 	ppx_open_files(data);
-	ppx_exe(data, data->in_file, 0);
+	return (ppx_exe(data, data->in_file, 0));
 }
 
 
