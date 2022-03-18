@@ -57,3 +57,4 @@ in
 .gitignore
 src/1_run_and_pipe/ppx_run.c
 out
+._*
