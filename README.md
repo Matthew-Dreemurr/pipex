@@ -14,7 +14,7 @@ This project has been coded according to the `NormeV3` standard.
 
 
 
-## How work the pipe ?
+## How does the pipe work ?
 
 To reproduce the pipe behviour we need too create a pipe that will redirect the input and output of eatch command we are going to execute a a child with `fork();`.
 
