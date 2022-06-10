@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 15:47:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/18 15:57:39 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/06/10 12:42:14 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 
 #include "ppx_debug.h"
 
+#include <stdio.h>
+
 static void	ppx_vect_dir_path(t_data *data, t_vector *vec, char *dir, char *cmd)
 {
 	if (!vect_write(vec, dir))
@@ -36,14 +38,13 @@ static void	ppx_vect_dir_path(t_data *data, t_vector *vec, char *dir, char *cmd)
 
 static int	check_bin(t_data *data, int x, char *tmp)
 {
-	vect_init_strict(&data->vec, 32);
-	ppx_vect_dir_path(data, &data->vec, tmp, data->cmd[x].arg[0]);
 	if (access(data->cmd[x].arg[0], X_OK) != -1)
 	{
 		data->cmd[x].bin = ft_strdup(data->cmd[x].arg[0]);
 		return (EXIT_SUCCESS);
 	}
-	else if (access(data->vec.buff, X_OK) != -1)
+	ppx_vect_dir_path(data, &data->vec, tmp, data->cmd[x].arg[0]);
+	if (access(data->vec.buff, X_OK) != -1)
 	{
 		data->cmd[x].bin = ft_strdup(data->vec.buff);
 		return (EXIT_SUCCESS);
@@ -92,5 +93,8 @@ void	ppx_init_bindir(t_data *data, char **env)
 		x++;
 	data->bin_dir = ft_split(env[x] + 5, ':');
 	if (!data->bin_dir)
-		ppx_exit_prog(EXIT_FAILURE, NULL, "Fail ft_plit(); to `data->bin_dir`");
+		ppx_exit_prog(EXIT_FAILURE, data, "Fail ft_plit(); to `data->bin_dir`");
+	if (!vect_init_strict(&data->vec, 32))
+		ppx_exit_prog(EXIT_FAILURE, data, "Vect init fail!\n");
+	
 }
