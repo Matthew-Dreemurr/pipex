@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:12:07 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/17 17:55:22 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/06/10 13:56:10 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,9 @@ void	ppx_exit_prog(int ret, t_data *data, const char *debug)
 		ft_putstr_fd((char *)debug, STDOUT_FILENO);
 	else
 		(void)debug;
-	if (ret == EXIT_FAILURE)
+	if (ret < 0)
 	{
-		if (!debug)
-			perror(NULL);
+		ret *= -1;
 		ft_putstr_fd("Error\n", STDERR_FILENO);
 	}
 	exit(ret);

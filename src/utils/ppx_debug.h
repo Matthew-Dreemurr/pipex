@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:13:11 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/10 14:46:37 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/06/10 13:46:32 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # ifndef PPX_DEBUG2
 #  define PPX_DEBUG2 0
 # endif
+
+# define P_EXIT_FAILURE -1
+# define P_EXIT_SUCCESS  1
 
 # ifdef WRA
 #  include "wraloc.h"

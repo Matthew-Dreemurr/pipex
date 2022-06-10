@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 17:05:49 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/17 17:24:20 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/06/10 15:11:12 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 //access();
 #include <unistd.h>
+#include <fcntl.h>
 
 #include "pipex.h"
 
@@ -40,16 +41,21 @@ static void	ppx_init_var(t_data *data, int ac, char **av)
 
 static void	ppx_check_file(int ac, char **arg)
 {
+	int	file;
+
+	// if (access(arg[1], R_OK) == -1)
+	// 	ppx_exit_prog(P_EXIT_FAILURE, NULL, "Fail read file1\n");
 	if (access(arg[1], R_OK) == -1)
-		ppx_exit_prog(EXIT_FAILURE, NULL, "Fail read file1\n");
+		printf("test\n");
 	else if (PPX_DEBUG)
 		ft_putstr_fd("[OK] read file1\n", STDOUT_FILENO);
-	if (access(arg[ac - 1], R_OK) == -1)
-		ppx_exit_prog(EXIT_FAILURE, NULL, "Fail read file2\n");
-	else if (PPX_DEBUG)
-		ft_putstr_fd("[OK] read file2\n", STDOUT_FILENO);
 	if (access(arg[ac - 1], W_OK) == -1)
-		ppx_exit_prog(EXIT_FAILURE, NULL, "Fail write file2\n");
+	{
+		file = open(arg[ac - 1], O_CREAT , 0666);
+		if (file == -1)
+			ppx_exit_prog(P_EXIT_FAILURE, NULL, "Fail write file2\n");
+		close(file);
+	}
 	else if (PPX_DEBUG)
 		ft_putstr_fd("[OK] write file2\n", STDOUT_FILENO);
 }
@@ -68,7 +74,7 @@ int	main(int ac, char **av, char **env)
 
 	ppx_init_var(&data, ac, av);
 	if (ac < 5)
-		ppx_exit_prog(EXIT_FAILURE, NULL, PPX_ERR_USAGE);
+		ppx_exit_prog(P_EXIT_FAILURE, NULL, PPX_ERR_USAGE);
 	ppx_check_file(ac, av);
 	ppx_init_data(&data, env);
 	ppx_exit_prog(ppx_run(&data), &data, NULL);

@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:23:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/03/18 15:54:12 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/06/10 13:44:53 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	ppx_populate_cmd(t_data *data)
 		data->cmd[index].arg = NULL;
 		len = strlen_protect(data->av[x]);
 		if (!len)
-			ppx_exit_prog(EXIT_FAILURE, data, "Empty commad ?\n");
+			ppx_exit_prog(P_EXIT_FAILURE, data, "Empty commad ?\n");
 		data->cmd[index].arg = ft_split(data->av[x], ' ');
 		x++;
 		index++;
@@ -55,7 +55,7 @@ void	ppx_init_data(t_data *data, char **env)
 {
 	data->cmd = (t_cmd *)ft_calloc((data->ac - 2), sizeof(t_cmd));
 	if (!data->cmd)
-		ppx_exit_prog(EXIT_FAILURE, data, "Fail malloc **data !\n");
+		ppx_exit_prog(P_EXIT_FAILURE, data, "Fail malloc **data !\n");
 	ppx_populate_cmd(data);
 	ppx_init_bindir(data, env);
 	ppx_find_cmd_dir(data);

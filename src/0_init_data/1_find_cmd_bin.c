@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 15:47:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/06/10 12:51:04 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/06/10 13:56:59 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@
 static void	ppx_vect_dir_path(t_data *data, t_vector *vec, char *dir, char *cmd)
 {
 	if (!vect_write(vec, dir))
-		ppx_exit_prog(EXIT_FAILURE, data, "vect_write fail !\n");
+		ppx_exit_prog(P_EXIT_FAILURE, data, "vect_write fail !\n");
 	if (!vect_push(vec, '/'))
-		ppx_exit_prog(EXIT_FAILURE, data, "vect_push fail !\n");
+		ppx_exit_prog(P_EXIT_FAILURE, data, "vect_push fail !\n");
 	if (!vect_cat(vec, cmd))
-		ppx_exit_prog(EXIT_FAILURE, data, "vect_cat fail !\n");
+		ppx_exit_prog(P_EXIT_FAILURE, data, "vect_cat fail !\n");
 }
 
 static int	check_bin(t_data *data, int x, char *tmp)
@@ -39,15 +39,15 @@ static int	check_bin(t_data *data, int x, char *tmp)
 	if (access(data->cmd[x].arg[0], X_OK) != -1)
 	{
 		data->cmd[x].bin = ft_strdup(data->cmd[x].arg[0]);
-		return (EXIT_SUCCESS);
+		return (P_EXIT_SUCCESS);
 	}
 	ppx_vect_dir_path(data, &data->vec, tmp, data->cmd[x].arg[0]);
 	if (access(data->vec.buff, X_OK) != -1)
 	{
 		data->cmd[x].bin = ft_strdup(data->vec.buff);
-		return (EXIT_SUCCESS);
+		return (P_EXIT_SUCCESS);
 	}
-	return (EXIT_FAILURE);
+	return (P_EXIT_FAILURE);
 }
 
 /**
@@ -66,13 +66,13 @@ void	ppx_find_cmd_dir(t_data *data)
 		tmp = data->bin_dir;
 		while (*tmp)
 		{
-			if (check_bin(data, x, *tmp) == EXIT_SUCCESS)
+			if (check_bin(data, x, *tmp) == P_EXIT_SUCCESS)
 				break ;
 			tmp++;
 			if (!(*tmp))
 			{
 				ft_putstr_fd(data->cmd[x].arg[0], STDOUT_FILENO);
-				ppx_exit_prog(EXIT_FAILURE, data, "\nCommand not found !\n");
+				ppx_exit_prog(-127, data, "\nCommand not found !\n");
 			}
 		}
 		x++;
@@ -91,7 +91,7 @@ void	ppx_init_bindir(t_data *data, char **env)
 		x++;
 	data->bin_dir = ft_split(env[x] + 5, ':');
 	if (!data->bin_dir)
-		ppx_exit_prog(EXIT_FAILURE, data, "Fail ft_plit(); to `data->bin_dir`");
+		ppx_exit_prog(P_EXIT_FAILURE, data, "Fail ft_plit(); to `data->bin_dir`");
 	if (!vect_init_strict(&data->vec, 32))
-		ppx_exit_prog(EXIT_FAILURE, data, "Vect init fail!\n");
+		ppx_exit_prog(P_EXIT_FAILURE, data, "Vect init fail!\n");
 }
