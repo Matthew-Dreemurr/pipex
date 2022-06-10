@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 15:47:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/06/10 12:48:19 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/06/10 12:51:04 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 #include "vector.h"
 
 #include "ppx_debug.h"
-
-#include <stdio.h>
 
 static void	ppx_vect_dir_path(t_data *data, t_vector *vec, char *dir, char *cmd)
 {
