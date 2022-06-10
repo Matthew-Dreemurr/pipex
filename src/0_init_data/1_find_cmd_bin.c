@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 15:47:57 by mahadad           #+#    #+#             */
-/*   Updated: 2022/06/10 12:42:14 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/06/10 12:48:19 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,4 @@ void	ppx_init_bindir(t_data *data, char **env)
 		ppx_exit_prog(EXIT_FAILURE, data, "Fail ft_plit(); to `data->bin_dir`");
 	if (!vect_init_strict(&data->vec, 32))
 		ppx_exit_prog(EXIT_FAILURE, data, "Vect init fail!\n");
-	
 }
