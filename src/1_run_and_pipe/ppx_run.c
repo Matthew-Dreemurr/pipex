@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:50:21 by mahadad           #+#    #+#             */
-/*   Updated: 2022/06/10 15:12:44 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/06/14 12:31:49 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,11 @@
 #include "ppx_exit_prog.h"
 #include "ppx_debug.h"
 
-#include <stdio.h>//TODO
 static void	ppx_open_files(t_data *data)
 {
 	data->in_file = open(data->av[1], O_RDONLY);
-	// if (0 > data->in_file)//TODO
-	// 	ppx_exit_prog(P_EXIT_FAILURE, data, "Fail to open the input file\n");
 	if (0 > data->in_file)
-		printf("Test2\n");
+		ppx_exit_prog(P_EXIT_FAILURE, data, "Fail to open the input file\n");
 	data->out_file = open(data->av[data->ac], O_WRONLY);
 	if (0 > data->out_file)
 		ppx_exit_prog(P_EXIT_FAILURE, data, "Fail to open the output file\n");
