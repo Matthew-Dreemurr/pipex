@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 17:05:49 by mahadad           #+#    #+#             */
-/*   Updated: 2022/06/14 12:11:56 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/06/14 14:00:01 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	ppx_check_file(int ac, char **arg)
 
 	if (access(arg[1], R_OK) == -1)
 		ppx_exit_prog(P_EXIT_FAILURE, NULL, "Fail read file1\n");
-	if (access(arg[1], R_OK) == -1)
+	if (PPX_DEBUG)
 		ft_putstr_fd("[OK] read file1\n", STDOUT_FILENO);
 	if (access(arg[ac - 1], W_OK) == -1)
 	{
@@ -53,8 +53,9 @@ static void	ppx_check_file(int ac, char **arg)
 		if (file == -1)
 			ppx_exit_prog(P_EXIT_FAILURE, NULL, "Fail write file2\n");
 		close(file);
+		return ;
 	}
-	else if (PPX_DEBUG)
+	if (PPX_DEBUG)
 		ft_putstr_fd("[OK] write file2\n", STDOUT_FILENO);
 }
 
