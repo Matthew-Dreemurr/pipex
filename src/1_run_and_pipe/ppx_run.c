@@ -29,7 +29,7 @@ static void	ppx_open_files(t_data *data)
 	data->in_file = open(data->av[1], O_RDONLY);
 	if (0 > data->in_file)
 		ppx_exit_prog(P_EXIT_FAILURE, data, "Fail to open the input file\n");
-	data->out_file = open(data->av[data->ac], O_WRONLY);
+	data->out_file = open(data->av[data->ac], O_WRONLY | O_TRUNC);
 	if (0 > data->out_file)
 		ppx_exit_prog(P_EXIT_FAILURE, data, "Fail to open the output file\n");
 }
