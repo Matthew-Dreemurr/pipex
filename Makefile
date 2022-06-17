@@ -6,7 +6,7 @@
 #    By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 11:30:03 by mahadad           #+#    #+#              #
-#    Updated: 2022/03/17 17:23:14 by mahadad          ###   ########.fr        #
+#    Updated: 2022/06/17 12:02:50 by mahadad          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,9 +107,11 @@ c: clean
 fc: fclean
 r: fc all
 
-sub:
-	make SANI=$(SANI) WRA=$(WRA) -C $(dir $(DEP_LIBFT))
-
+print_src:
+	@for elem in $(SRCS_FIND); do \
+		printf "[%s]\n" $$path;\
+		echo $$elem;\
+	done
 
 git:
 	@git pull
